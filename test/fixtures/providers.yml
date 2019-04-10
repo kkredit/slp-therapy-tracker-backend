@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  username: MyString
-  fname: MyString
-  lname: MyString
-  email: MyString
+  username: testuser1
+  fname: Sally
+  lname: Anderson
+  email: sanderson@school.org
 
 two:
-  username: MyString
-  fname: MyString
-  lname: MyString
-  email: MyString
+  username: testuser2
+  fname: Michael
+  lname: Smith
+  email: ms@anotherschool.edu

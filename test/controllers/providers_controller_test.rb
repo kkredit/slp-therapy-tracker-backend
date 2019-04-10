@@ -16,6 +16,10 @@ class ProvidersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create provider" do
+    # must delete provider before creating, so that the final number changes
+    # required because providers have unique emails and usernames, so a repeated create will fail
+    delete provider_url(@provider)
+
     assert_difference('Provider.count') do
       post providers_url, params: { provider: { email: @provider.email, fname: @provider.fname, lname: @provider.lname, username: @provider.username } }
     end
