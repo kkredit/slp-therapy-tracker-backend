@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_013327) do
+ActiveRecord::Schema.define(version: 2019_04_10_015326) do
 
   create_table "attempts", force: :cascade do |t|
     t.integer "number"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_013327) do
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "session_id"
+    t.index ["session_id"], name: "index_students_on_session_id"
   end
 
 end

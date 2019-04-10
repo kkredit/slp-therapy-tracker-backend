@@ -2,7 +2,11 @@ require 'test_helper'
 
 class StudentsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    # associate a session first
+    @session = Session.first
+
     @student = students(:one)
+    @student.session_id = @session.id
   end
 
   test "should get index" do
@@ -17,7 +21,8 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create student" do
     assert_difference('Student.count') do
-      post students_url, params: { student: { number: @student.number } }
+      post students_url, params: { student: { number: @student.number,
+                                              session_id: @student.session_id } }
     end
 
     assert_redirected_to student_url(Student.last)
@@ -34,7 +39,8 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update student" do
-    patch student_url(@student), params: { student: { number: @student.number } }
+    patch student_url(@student), params: { student: { number: @student.number,
+                                                      session_id: @student.session_id } }
     assert_redirected_to student_url(@student)
   end
 
