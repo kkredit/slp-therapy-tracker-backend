@@ -3,4 +3,5 @@ class Session < ApplicationRecord
   validates :provider_id, presence: true
 
   belongs_to :provider
+  belongs_to :location
 end
