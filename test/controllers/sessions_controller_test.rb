@@ -2,10 +2,12 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    # associate a provider first
+    # associate a provider and location first
     @provider = Provider.first
+    @location = Location.first
     @session = sessions(:one)
     @session.provider_id = @provider.id
+    @session.location_id = @location.id
   end
 
   teardown do
@@ -28,7 +30,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     delete session_url(@session)
 
     assert_difference('Session.count') do
-      post sessions_url, params: { session: { time: @session.time, provider_id: @session.provider_id } }
+      post sessions_url, params: { session: { time: @session.time,
+                                              provider_id: @session.provider_id,
+                                              location_id: @session.location_id } }
     end
 
     assert_redirected_to session_url(Session.last)
@@ -45,7 +49,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update session" do
-    patch session_url(@session), params: { session: { time: @session.time, provider_id: @session.provider_id } }
+    patch session_url(@session), params: { session: { time: @session.time,
+                                                      provider_id: @session.provider_id,
+                                                      location_id: @session.location_id } }
     assert_redirected_to session_url(@session)
   end
 
