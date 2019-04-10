@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_013327) do
     t.datetime "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "provider_id"
+    t.index ["provider_id"], name: "index_sessions_on_provider_id"
   end
 
   create_table "students", force: :cascade do |t|
