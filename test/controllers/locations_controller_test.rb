@@ -16,6 +16,10 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create location" do
+    # must delete location before creating, so that the final number changes
+    # required because locations have unique names, so a repeated create will fail
+    delete location_url(@location)
+
     assert_difference('Location.count') do
       post locations_url, params: { location: { name: @location.name } }
     end
