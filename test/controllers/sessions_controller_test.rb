@@ -2,7 +2,14 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    # associate a provider first
+    @provider = Provider.first
     @session = sessions(:one)
+    @session.provider_id = @provider.id
+  end
+
+  teardown do
+    delete provider_url(@provider)
   end
 
   test "should get index" do
@@ -16,8 +23,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create session" do
+    # must delete session before creating, so that the final number changes
+    # required because sessions have unique times, so a repeated create will fail
+    delete session_url(@session)
+
     assert_difference('Session.count') do
-      post sessions_url, params: { session: { time: @session.time } }
+      post sessions_url, params: { session: { time: @session.time, provider_id: @session.provider_id } }
     end
 
     assert_redirected_to session_url(Session.last)
@@ -34,7 +45,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update session" do
-    patch session_url(@session), params: { session: { time: @session.time } }
+    patch session_url(@session), params: { session: { time: @session.time, provider_id: @session.provider_id } }
     assert_redirected_to session_url(@session)
   end
 
