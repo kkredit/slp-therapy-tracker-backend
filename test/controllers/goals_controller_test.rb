@@ -2,7 +2,11 @@ require 'test_helper'
 
 class GoalsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    # associate a student first
+    @student = Student.first
+
     @goal = goals(:one)
+    @goal.student_id = @student.id
   end
 
   test "should get index" do
@@ -17,7 +21,7 @@ class GoalsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create goal" do
     assert_difference('Goal.count') do
-      post goals_url, params: { goal: { number: @goal.number } }
+      post goals_url, params: { goal: { number: @goal.number, student_id: @goal.student_id } }
     end
 
     assert_redirected_to goal_url(Goal.last)
@@ -34,7 +38,7 @@ class GoalsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update goal" do
-    patch goal_url(@goal), params: { goal: { number: @goal.number } }
+    patch goal_url(@goal), params: { goal: { number: @goal.number, student_id: @goal.student_id } }
     assert_redirected_to goal_url(@goal)
   end
 

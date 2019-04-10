@@ -6,4 +6,5 @@ class Student < ApplicationRecord
   validates :session_id, presence: true
 
   belongs_to :session
+  has_many :goals
 end

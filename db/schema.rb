@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_015326) do
+ActiveRecord::Schema.define(version: 2019_04_10_022218) do
 
   create_table "attempts", force: :cascade do |t|
     t.integer "number"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_015326) do
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "student_id"
+    t.index ["student_id"], name: "index_goals_on_student_id"
   end
 
   create_table "locations", force: :cascade do |t|
