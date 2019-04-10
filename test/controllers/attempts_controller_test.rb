@@ -2,7 +2,11 @@ require 'test_helper'
 
 class AttemptsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    # associate a goal first
+    @goal = Goal.first
+
     @attempt = attempts(:one)
+    @attempt.goal_id = @goal.id
   end
 
   test "should get index" do
@@ -17,7 +21,8 @@ class AttemptsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create attempt" do
     assert_difference('Attempt.count') do
-      post attempts_url, params: { attempt: { number: @attempt.number, status: @attempt.status } }
+      post attempts_url, params: { attempt: { number: @attempt.number, status: @attempt.status,
+                                              goal_id: @attempt.goal_id } }
     end
 
     assert_redirected_to attempt_url(Attempt.last)
@@ -34,7 +39,9 @@ class AttemptsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update attempt" do
-    patch attempt_url(@attempt), params: { attempt: { number: @attempt.number, status: @attempt.status } }
+    patch attempt_url(@attempt), params: { attempt: { number: @attempt.number,
+                                                      status: @attempt.status,
+                                                      goal_id: @attempt.goal_id } }
     assert_redirected_to attempt_url(@attempt)
   end
 
