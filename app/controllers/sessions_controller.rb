@@ -5,6 +5,11 @@ class SessionsController < ApplicationController
   # GET /sessions.json
   def index
     @sessions = Session.all
+    respond_to do |format|
+      format.html {render :index}
+      format.json {render :index, status: :ok}
+      format.xml {render xml: @sessions.as_json}
+    end
   end
 
   # GET /sessions/1

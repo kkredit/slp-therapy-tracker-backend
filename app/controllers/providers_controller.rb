@@ -5,6 +5,11 @@ class ProvidersController < ApplicationController
   # GET /providers.json
   def index
     @providers = Provider.all
+    respond_to do |format|
+      format.html {render :index}
+      format.json {render :index, status: :ok}
+      format.xml {render xml: @providers.as_json}
+    end
   end
 
   # GET /providers/1
