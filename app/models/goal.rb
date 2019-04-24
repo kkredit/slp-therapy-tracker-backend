@@ -6,5 +6,5 @@ class Goal < ApplicationRecord
   validates :student_id, presence: true
 
   belongs_to :student
-  has_many :attempts
+  has_many :attempts, dependent: :destroy
 end

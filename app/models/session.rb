@@ -4,5 +4,5 @@ class Session < ApplicationRecord
 
   belongs_to :provider
   belongs_to :location
-  has_many :students
+  has_many :students, dependent: :destroy
 end
