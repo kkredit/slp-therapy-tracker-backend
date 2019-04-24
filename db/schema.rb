@@ -12,12 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2019_04_10_023221) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "attempts", force: :cascade do |t|
     t.integer "number"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "goal_id"
+    t.bigint "goal_id"
     t.index ["goal_id"], name: "index_attempts_on_goal_id"
   end
 
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_023221) do
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "student_id"
+    t.bigint "student_id"
     t.index ["student_id"], name: "index_goals_on_student_id"
   end
 
@@ -48,8 +51,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_023221) do
     t.datetime "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "provider_id"
-    t.integer "location_id"
+    t.bigint "provider_id"
+    t.bigint "location_id"
     t.index ["location_id"], name: "index_sessions_on_location_id"
     t.index ["provider_id"], name: "index_sessions_on_provider_id"
   end
@@ -58,8 +61,13 @@ ActiveRecord::Schema.define(version: 2019_04_10_023221) do
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "session_id"
+    t.bigint "session_id"
     t.index ["session_id"], name: "index_students_on_session_id"
   end
 
+  add_foreign_key "attempts", "goals"
+  add_foreign_key "goals", "students"
+  add_foreign_key "sessions", "locations"
+  add_foreign_key "sessions", "providers"
+  add_foreign_key "students", "sessions"
 end
